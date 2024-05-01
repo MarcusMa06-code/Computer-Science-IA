@@ -1,7 +1,5 @@
 import studentsInfo from '../student_info.json' with {type: 'json'};
 
-const commonNameInput = document.getElementById('common-name')
-
 // auto complete the form
 commonNameInput.addEventListener('change',function(){
 
