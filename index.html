@@ -75,7 +75,7 @@
             }
 
             table{
-                font-family: arial, sans-serif;
+                font-family: Roboto, arial;
                 border-collapse: collapse;
                 margin-top: 20px;
             }
@@ -111,7 +111,7 @@
                 </div>
             </form>
 
-            <button class="download-button" id="download-button">Download</button>
+            <button class="download-button" id="download-button" onclick="download()">Download</button>
             
             <form class="registration-form" id="registration-form">
                 <div class="grade-container">
@@ -283,8 +283,35 @@
                         row.style.display = '';
                     } else row.style.display = 'none';
                 });
-
             }
+
+            function download(){
+                const exportedTable = document.createElement('table');
+                const rows = document.querySelectorAll("#registration-table tr");
+                rows.forEach(row =>{
+                    if (row.style.display === ''){
+                        let temp = row.cloneNode(true);
+                        exportedTable.appendChild(temp);
+                    }
+                })
+                
+                exportedTable.style.fontFamily = 'Roboto, arial';
+                exportedTable.style.fontSize = '12px';
+                exportedTable.style.borderCollapse = 'collapse';
+                exportedTable.style.marginTop = '20px';
+                exportedTable.querySelectorAll('td, th').forEach(cell => {
+                    cell.style.border = '1px solid #dddddd';
+                    cell.style.textAlign = 'left';
+                    cell.style.padding = '8px';
+                });
+                
+                let a = document.createElement('a');
+				a.href = `data:application/vnd.ms-excel, ${encodeURIComponent(exportedTable.outerHTML)}`
+				a.download = startDateString + ' to ' + endDateString + '.xls'
+				a.click()
+            }
+
+
 
             boundaryDate.forEach(input => {
                 input.addEventListener('change', function(){
@@ -318,7 +345,7 @@
                 document.querySelector('#registration-form').style.display = 'none';
                 document.querySelector("#time-span").style.display='block';
                 document.querySelector("#download-button").style.display='block';
-
+                hideTableData(startDateString,endDateString);
             });
 
             updateDateTime();
