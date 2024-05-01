@@ -118,7 +118,7 @@
                     <label for="grade">Grade:</label>
                     <select id="grade">
                         <option value="PIB">PIB</option>
-                        <option value="IB1">IB1</option>
+                        <option value="IB1" selected>IB1</option>
                         <option value="IB2">IB2</option>
                     </select>
                 </div>
@@ -127,23 +127,23 @@
                     <label for="register-class">Class:</label>
                     <select id="register-class">
                         <option value="A">A</option>
-                        <option value="B">B</option>
+                        <option value="B" selected>B</option>
                     </select>
                 </div>
 
                 <div class="common-name-container">
                     <label for="common-name">Commonly used name:</label>
-                    <input type="text" id="common-name">
+                    <input type="text" id="common-name" autocomplete="off" required>
                 </div>
 
                 <div class="fname-container">
                     <label for="fname">First name:</label>
-                    <input type="text" id="fname">
+                    <input type="text" id="fname" autocomplete="off">
                 </div>
                 
                 <div class="lname-container">
                     <label for="lname">Last name:</label>
-                    <input type="text" id="lname">
+                    <input type="text" id="lname" autocomplete="off">
                 </div>
                 
                 <div class="register-time-container">
@@ -190,7 +190,7 @@
             
         </main>
         
-        <script>
+        <script type="module">
 
             const currentTime = document.getElementById('register-time');
             const boundaryDate = document.querySelectorAll('#boundary-date');
@@ -199,6 +199,7 @@
             const exportAll = document.querySelector('.export-all-nav');
             const form = document.getElementById('registration-form');
             const table = document.getElementById('registration-table');
+            const commonNameInput = document.getElementById('common-name')
             var currentDateString = '';
             var startDateString = '';
             var endDateString = '';
@@ -311,24 +312,39 @@
 				a.click()
             }
 
-
-
             boundaryDate.forEach(input => {
                 input.addEventListener('change', function(){
                     startDateString = document.querySelector('.starting-date-container input').value;
                     endDateString = document.querySelector('.ending-date-container input').value;
                     if (startDateString > endDateString) {
                         alert('Starting Date has to be prior to ending date!');
-                        endDateString = document.querySelector('.ending-date-container input').value =startDateString;
+
+                        endDateString = document.querySelector('.ending-date-container input').value = startDateString;
                     }
                     hideTableData(startDateString,endDateString);
                 });
             });
 
-            form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent the default form submission
-                addEntryToTable();
-            });
+            commonNameInput.addEventListener('change',function(){
+
+                console.log('entered')
+
+                const grade = document.getElementById('grade').value;
+                const regClass = document.getElementById('register-class').value;
+
+                for(let i=0;i<studentsInfo.length;i++){
+                    let studentInfo = studentsInfo[i];
+                    console.log(studentInfo);
+                    if(studentInfo.grade === grade && studentInfo['common-name'] == commonNameInput.value){
+                        document.getElementById('fname').value = studentInfo.fname;
+                        document.getElementById('lname').value = studentInfo.lname;
+                        document.getElementById('register-class').value = studentInfo['register-class'];
+                        return;
+                    }
+                }
+            })
+
+            form.addEventListener('submit', () => { addEntryToTable(); });
 
             historyNav.addEventListener('click', function() {
                 document.querySelector('#registration-form').style.display = 'none';
@@ -358,6 +374,9 @@
             setInterval(updateDateTime, 60000);
 
             loadTableData();
+
+            // 数据库操作
+            import studentsInfo from './student_info.json' with {type: 'json'};
 
         </script>
         
