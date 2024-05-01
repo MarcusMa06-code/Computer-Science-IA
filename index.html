@@ -111,7 +111,7 @@
                 </div>
             </form>
 
-            <button class="download-button" id="download-button" onclick="download()">Download</button>
+            <button class="download-button" id="download-button">Download</button>
             
             <form class="registration-form" id="registration-form">
                 <div class="grade-container">
@@ -286,7 +286,7 @@
                 });
             }
 
-            function download(){
+            function downloadXLS(){
                 const exportedTable = document.createElement('table');
                 const rows = document.querySelectorAll("#registration-table tr");
                 rows.forEach(row =>{
@@ -311,6 +311,7 @@
 				a.download = startDateString + ' to ' + endDateString + '.xls'
 				a.click()
             }
+            document.getElementById('download-button').addEventListener('click', downloadXLS);
 
             boundaryDate.forEach(input => {
                 input.addEventListener('change', function(){
