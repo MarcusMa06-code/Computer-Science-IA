@@ -167,7 +167,7 @@
                     <th>Status</th>
                     <th>Time</th>
                 </tr>
-                <!-- 这两个是测试数据 -->
+                <!-- test data -->
                 <tr>
                     <td id="status-flag">Marcus</td>
                     <td>Mingyang</td>
@@ -203,8 +203,6 @@
             var currentDateString = '';
             var startDateString = '';
             var endDateString = '';
-            // 这三个字符串一会会在hideTableData()当中反复使用
-
             
             // initializing the content of page
             function initialization(){
@@ -279,7 +277,6 @@
 
                 rows.forEach(row => {
                     const dateText = row.cells[6].textContent.split(' ')[0];
-                    //console.log(typeof dateText+' '+dateText);
                     if((dateText >= startDate && dateText <= endDate)){
                         row.style.display = '';
                     } else row.style.display = 'none';
@@ -379,7 +376,6 @@
 
             loadTableData();
 
-            // 数据库操作
             import studentsInfo from './student_info.json' with {type: 'json'};
 
         </script>
