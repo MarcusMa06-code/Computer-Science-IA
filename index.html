@@ -103,11 +103,11 @@
             <form class="time-span" id="time-span">
                 <div class="starting-date-container">
                     <label id="starting-date">Starts on:</label>
-                    <input id="boundary-date" type="date" value="Year-Month-Day">
+                    <input id="boundary-date" type="date">
                 </div>
                 <div class="ending-date-container">
                     <label for="ending-date">Ends on:</label>
-                    <input id="boundary-date" type="date" value="Year-Month-Day">
+                    <input id="boundary-date" type="date">
                 </div>
             </form>
 
@@ -167,22 +167,23 @@
                     <th>Status</th>
                     <th>Time</th>
                 </tr>
+                <!-- 这两个是测试数据 -->
                 <tr>
-                    <td>Marcus</td>
+                    <td id="status-flag">Marcus</td>
                     <td>Mingyang</td>
                     <td>Ma</td>
                     <td>IB1</td>
                     <td>B</td>
-                    <td>Registered</td>
+                    <td id="status-flag">Registered</td>
                     <td>2024-04-30 07:10</td>
                 </tr>
                 <tr>
-                    <td>Jerry</td>
+                    <td id="status-flag">Jerry</td>
                     <td>Mingjun</td>
                     <td>Ma</td>
                     <td>PIB</td>
                     <td>A</td>
-                    <td>Registered</td>
+                    <td id="status-flag">Registered</td>
                     <td>2024-04-30 07:10</td>
                 </tr>
             </table>
@@ -198,14 +199,19 @@
             const exportAll = document.querySelector('.export-all-nav');
             const form = document.getElementById('registration-form');
             const table = document.getElementById('registration-table');
-            var currentDateString = ''
+            var currentDateString = '';
+            var startDateString = '';
+            var endDateString = '';
+            // 这三个字符串一会会在hideTableData()当中反复使用
 
             
-
             // initializing the content of page
-            document.querySelector('#registration-form').style.display = 'block';
-            document.querySelector("#time-span").style.display='none';
-            document.querySelector("#download-button").style.display='none';
+            function initialization(){
+                document.querySelector('#registration-form').style.display = 'block';
+                document.querySelector("#time-span").style.display='none';
+                document.querySelector("#download-button").style.display='none';
+                hideTableData(currentDateString,currentDateString);
+            }
 
             function updateDateTime() {
                 const now = new Date();
@@ -215,11 +221,6 @@
                 const hour = ('0' + now.getHours()).slice(-2);
                 const minute = ('0' + now.getMinutes()).slice(-2);
                 currentTime.value = `${year}-${month}-${day} ${hour}:${minute}`;
-
-                boundaryDate.forEach(input =>{
-                    input.value =`${year}-${month}-${day}`;
-                })
-
                 currentDateString = `${year}-${month}-${day}`;
             }
 
@@ -238,20 +239,29 @@
 
                 const row = table.insertRow(-1); // Append a new row to the table
                 row.innerHTML = `
-                    <td>${commonName}</td>
+                    <td id="status-flag">${commonName}</td>
                     <td>${firstName}</td>
                     <td>${lastName}</td>
                     <td>${grade}</td>
                     <td>${regClass}</td>
-                    <td>${status}</td>
+                    <td id="status-flag">${status}</td>
                     <td>${registerTime}</td>
                 `;
+
+                if (status === 'Late'){
+                    let extraAttentions = row.querySelectorAll('#status-flag');
+                    extraAttentions.forEach(extraAttention =>{
+                        extraAttention.style.color = 'white';
+                        extraAttention.style['background-color'] = 'red';
+                        extraAttention.style['font-wright'] = 'bold';
+                    })
+                }
+
                 saveTableData();
             }
 
             function saveTableData() {
-                const tableData = table.innerHTML;
-                localStorage.setItem('tableData', tableData);
+                localStorage.setItem('tableData', table.innerHTML);
             }
 
             function loadTableData() {
@@ -261,29 +271,47 @@
                 }
             }
 
-            function hideTableDate(startDate,endDate){
+            function hideTableData(startDate,endDate){
                 // here,loop through the table, make entries !(startDate <= Time && Time <= endDate) display.none
+
+                const rows = document.querySelectorAll("#registration-table tr:not(:first-child)"); // Skip the header row
+
+                rows.forEach(row => {
+                    const dateText = row.cells[6].textContent.split(' ')[0];
+                    //console.log(typeof dateText+' '+dateText);
+                    if((dateText >= startDate && dateText <= endDate)){
+                        row.style.display = '';
+                    } else row.style.display = 'none';
+                });
+
             }
 
+            boundaryDate.forEach(input => {
+                input.addEventListener('change', function(){
+                    startDateString = document.querySelector('.starting-date-container input').value;
+                    endDateString = document.querySelector('.ending-date-container input').value;
+                    if (startDateString > endDateString) {
+                        alert('Starting Date has to be prior to ending date!');
+                        endDateString = document.querySelector('.ending-date-container input').value =startDateString;
+                    }
+                    hideTableData(startDateString,endDateString);
+                });
+            });
 
             form.addEventListener('submit', function(event) {
                 event.preventDefault(); // Prevent the default form submission
                 addEntryToTable();
             });
 
-            updateDateTime();
-            setInterval(updateDateTime, 60000);
-
             historyNav.addEventListener('click', function() {
                 document.querySelector('#registration-form').style.display = 'none';
                 document.querySelector("#time-span").style.display='block';
                 document.querySelector("#download-button").style.display='none';
+                hideTableData(startDateString,endDateString);
             });
 
             todayNav.addEventListener('click', function() {
-                document.querySelector('#registration-form').style.display = 'block';
-                document.querySelector("#time-span").style.display='none';
-                document.querySelector("#download-button").style.display='none';
+                initialization();
             });
 
             exportAll.addEventListener('click', function() {
@@ -293,11 +321,18 @@
 
             });
 
+            updateDateTime();
+            startDateString = currentDateString;
+            endDateString = currentDateString;
+            boundaryDate.forEach(input =>{
+                input.value = currentDateString;
+            })
+            initialization();
+            setInterval(updateDateTime, 60000);
+
             loadTableData();
 
         </script>
         
     </body>
 </html>
-
-<!-- 接下来干什么：版本管理，出了问题方便回滚；hidetable还是没整明白 -->
