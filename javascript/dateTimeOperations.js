@@ -1,3 +1,4 @@
+// Element that displays the current time
 
 function updateDateTime() {
     const now = new Date();
@@ -10,12 +11,13 @@ function updateDateTime() {
     currentDateString = `${year}-${month}-${day}`;
 }
 
-// automatically calibrate time
+// Automatically calibrate time
 updateDateTime();
 startDateString = currentDateString;
 endDateString = currentDateString;
-boundaryDate.forEach(input =>{
+boundaryDate.forEach(input => {
     input.value = currentDateString;
-})
+});
 
+// Update date and time every minute
 setInterval(updateDateTime, 60000);

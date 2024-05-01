@@ -102,135 +102,18 @@
                     <td>2024-04-30 07:10</td>
                 </tr>
             </table>
+
+            <button class="one-click-register-all" id="one-click-register-all">One click and register ALL!</button>
             
         </main>
         
-        <script>
-            const currentTime = document.getElementById('register-time');
-            const boundaryDate = document.querySelectorAll('#boundary-date');
-            const historyNav = document.querySelector('.history-data-nav');
-            const todayNav = document.querySelector('.today-nav');
-            const exportAll = document.querySelector('.export-all-nav');
-            const form = document.getElementById('registration-form');
-            const table = document.getElementById('registration-table');
-            const commonNameInput = document.getElementById('common-name');
-            var currentDateString = '';
-            var startDateString = '';
-            var endDateString = '';
-            
-            // initializing the content of page
-            function initialization(){
-                document.querySelector('#registration-form').style.display = 'block';
-                document.querySelector("#time-span").style.display='none';
-                document.querySelector("#download-button").style.display='none';
-                hideTableData(currentDateString,currentDateString);
-            }
-
-
-            
-            // start of table related codes
-            function addEntryToTable() {
-                const commonName = document.getElementById('common-name').value;
-                const firstName = document.getElementById('fname').value;
-                const lastName = document.getElementById('lname').value;
-                const grade = document.getElementById('grade').value;
-                const regClass = document.getElementById('register-class').value;
-                const registerTime = currentTime.value;
-
-                var status = 'Registered';
-                if (registerTime.slice(-5,-3) === '07'){
-                    if (registerTime.slice(-2) > '30') status = 'Late';
-                } else if (registerTime.slice(-5,-3) > '07') status = 'Late';
-
-                const row = table.insertRow(-1); // Append a new row to the table
-                row.innerHTML = `
-                    <td id="status-flag">${commonName}</td>
-                    <td>${firstName}</td>
-                    <td>${lastName}</td>
-                    <td>${grade}</td>
-                    <td>${regClass}</td>
-                    <td id="status-flag">${status}</td>
-                    <td>${registerTime}</td>
-                `;
-
-                if (status === 'Late'){
-                    let extraAttentions = row.querySelectorAll('#status-flag');
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style.color = 'white';
-                        extraAttention.style['background-color'] = 'red';
-                        extraAttention.style['font-wright'] = 'bold';
-                    })
-                }
-
-                saveTableData();
-            }
-
-            function saveTableData() {
-                localStorage.setItem('tableData', table.innerHTML);
-            }
-
-            function loadTableData() {
-                const storedTableData = localStorage.getItem('tableData');
-                if (storedTableData) {
-                    table.innerHTML = storedTableData;
-                }
-            }
-
-            // hide data on unwanted dates
-            function hideTableData(startDate,endDate){
-                const rows = document.querySelectorAll("#registration-table tr:not(:first-child)");
-                rows.forEach(row => {
-                    const dateText = row.cells[6].textContent.split(' ')[0];
-                    if((dateText >= startDate && dateText <= endDate)){
-                        row.style.display = '';
-                    } else row.style.display = 'none';
-                });
-            }
-
-            // add data into table
-            form.addEventListener('submit', () => { addEntryToTable(); });
-
-            loadTableData();
-            // end of table related codes
-
-            boundaryDate.forEach(input => {
-                input.addEventListener('change', function(){
-                    startDateString = document.querySelector('.starting-date-container input').value;
-                    endDateString = document.querySelector('.ending-date-container input').value;
-                    if (startDateString > endDateString) {
-                        alert('Starting Date has to be prior to ending date!');
-
-                        endDateString = document.querySelector('.ending-date-container input').value = startDateString;
-                    }
-                    hideTableData(startDateString,endDateString);
-                });
-            });
-
-            
-            // navigation through navigation bar
-            historyNav.addEventListener('click', function() {
-                document.querySelector('#registration-form').style.display = 'none';
-                document.querySelector("#time-span").style.display='block';
-                document.querySelector("#download-button").style.display='none';
-                hideTableData(startDateString,endDateString);
-            });
-
-            todayNav.addEventListener('click', function() {
-                initialization();
-            });
-
-            exportAll.addEventListener('click', function() {
-                document.querySelector('#registration-form').style.display = 'none';
-                document.querySelector("#time-span").style.display='block';
-                document.querySelector("#download-button").style.display='block';
-                hideTableData(startDateString,endDateString);
-            });        
-
-            initialization();
-        </script>
-
-        <script type="module" src="./javascript/jsonAccess.js"></script>
-        <script src="./javascript/timeRelated.js"></script>
+        <script src="./javascript/commonElements.js"></script>
+        <script src="./javascript/tableOperations.js"></script>  
+        <script src="./javascript/initAndNavigation.js"></script>
+        <script src="./javascript/datePicker.js"></script>
+        <script src="./javascript/dateTimeOperations.js"></script>
         <script src="./javascript/downloadTable.js"></script>
+        <script type="module" src="./javascript/jsonAccess.js"></script>
+
     </body>
 </html>
