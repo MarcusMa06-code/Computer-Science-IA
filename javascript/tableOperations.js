@@ -1,6 +1,19 @@
 // Table related codes
 
-function addEntryToTable() {    
+function addEntryToTable() {
+    const rows = document.querySelectorAll("#registration-table tr"); //
+    let existed = false;
+    rows.forEach(row =>{
+        const dateText = row.cells[5].textContent;
+        if (dateText == currentDateString && row.cells[1].textContent == tempStudent['student-id']){
+            existed = true;
+        }
+    })
+
+    if (existed){
+        alert("This entry conflicts with an existing one");
+        return;
+    }
 
     const condition = document.getElementById('conditions').value;
     const row = table.insertRow(-1);
@@ -73,7 +86,7 @@ function loadTableData() {
 function hideTableData(startDate,endDate){
     const rows = document.querySelectorAll("#registration-table tr:not(:first-child)");
     rows.forEach(row => {
-        const dateText = row.cells[5].textContent.split(' ')[0];
+        const dateText = row.cells[5].textContent
         if((dateText >= startDate && dateText <= endDate)){
             row.style.display = '';
         } else row.style.display = 'none';
