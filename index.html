@@ -1,96 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-
-        <!-- importing fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-
-        <title>Online-Registering System</title>
-
-        <!-- css code of the page -->
-        <style>
-
-            div{
-                margin: 0;
-            }
-
-            body{
-                font-family: Roboto, Arial;
-            }
-            nav{
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 50px;
-                z-index: 100;
-
-                color: white;
-                background-color: black;
-            }
-            nav div{
-                flex: 1;
-                text-align: center;
-                
-            }
-
-            .registration-form, .time-span{
-                width: 400px;
-            }
-
-            .registration-form div, .time-span div{
-                display: flex;
-                align-items: center;
-                margin-bottom: 10px;
-                flex: 1;
-                text-align: center;
-            }
-
-            .time-span{
-                width: 200px;
-            }
-
-            .time-span label{
-                width: 70px;
-            }
-
-            label {
-                width: 180px;
-                text-align: right;
-                margin-right: 10px;
-            }
-
-            input, select {
-                flex: 1;
-            }
-
-            main{
-                padding-top: 80px;
-            }
-
-            table{
-                font-family: Roboto, arial;
-                border-collapse: collapse;
-                margin-top: 20px;
-            }
-
-            td, th {
-                border: 1px solid #dddddd;
-                text-align: left;
-                padding: 8px;
-            }
-
-            tr:nth-child(even) {
-                background-color: #dddddd;
-            }
-
-        </style>
+        <link rel="stylesheet" href="style.css">
+        <title>Online-Registering System</title>        
     </head>
     <body>
         <nav>
@@ -190,8 +105,7 @@
             
         </main>
         
-        <script type="module">
-
+        <script>
             const currentTime = document.getElementById('register-time');
             const boundaryDate = document.querySelectorAll('#boundary-date');
             const historyNav = document.querySelector('.history-data-nav');
@@ -199,7 +113,6 @@
             const exportAll = document.querySelector('.export-all-nav');
             const form = document.getElementById('registration-form');
             const table = document.getElementById('registration-table');
-            const commonNameInput = document.getElementById('common-name')
             var currentDateString = '';
             var startDateString = '';
             var endDateString = '';
@@ -223,6 +136,20 @@
                 currentDateString = `${year}-${month}-${day}`;
             }
 
+            //start of time related codes
+            // automatically calibrate time
+            updateDateTime();
+            startDateString = currentDateString;
+            endDateString = currentDateString;
+            boundaryDate.forEach(input =>{
+                input.value = currentDateString;
+            })
+            initialization();
+            setInterval(updateDateTime, 60000);
+            //end of time related codes
+
+            
+            // start of table related codes
             function addEntryToTable() {
                 const commonName = document.getElementById('common-name').value;
                 const firstName = document.getElementById('fname').value;
@@ -270,11 +197,9 @@
                 }
             }
 
+            // hide data on unwanted dates
             function hideTableData(startDate,endDate){
-                // here,loop through the table, make entries !(startDate <= Time && Time <= endDate) display.none
-
-                const rows = document.querySelectorAll("#registration-table tr:not(:first-child)"); // Skip the header row
-
+                const rows = document.querySelectorAll("#registration-table tr:not(:first-child)");
                 rows.forEach(row => {
                     const dateText = row.cells[6].textContent.split(' ')[0];
                     if((dateText >= startDate && dateText <= endDate)){
@@ -283,6 +208,14 @@
                 });
             }
 
+            // add data into table
+            form.addEventListener('submit', () => { addEntryToTable(); });
+
+            loadTableData();
+            // end of table related codes
+
+
+            // download function
             function downloadXLS(){
                 const exportedTable = document.createElement('table');
                 const rows = document.querySelectorAll("#registration-table tr");
@@ -310,6 +243,7 @@
             }
             document.getElementById('download-button').addEventListener('click', downloadXLS);
 
+            
             boundaryDate.forEach(input => {
                 input.addEventListener('change', function(){
                     startDateString = document.querySelector('.starting-date-container input').value;
@@ -323,30 +257,9 @@
                 });
             });
 
-            commonNameInput.addEventListener('change',function(){
+            
 
-                console.log('entered')
-
-                const grade = document.getElementById('grade').value;
-                const regClass = document.getElementById('register-class').value;
-
-                for(let i=0;i<studentsInfo.length;i++){
-                    let studentInfo = studentsInfo[i];
-                    console.log(studentInfo);
-                    if(studentInfo.grade === grade && studentInfo['common-name'] == commonNameInput.value){
-                        document.getElementById('fname').value = studentInfo.fname;
-                        document.getElementById('lname').value = studentInfo.lname;
-                        document.getElementById('register-class').value = studentInfo['register-class'];
-                        return;
-                    }
-                }
-                alert(`No student ${commonNameInput.value} found.`)
-                commonNameInput.value = '';
-                commonNameInput.placeholder = 'Try again';
-            })
-
-            form.addEventListener('submit', () => { addEntryToTable(); });
-
+            // navigation through navigation bar
             historyNav.addEventListener('click', function() {
                 document.querySelector('#registration-form').style.display = 'none';
                 document.querySelector("#time-span").style.display='block';
@@ -363,22 +276,9 @@
                 document.querySelector("#time-span").style.display='block';
                 document.querySelector("#download-button").style.display='block';
                 hideTableData(startDateString,endDateString);
-            });
-
-            updateDateTime();
-            startDateString = currentDateString;
-            endDateString = currentDateString;
-            boundaryDate.forEach(input =>{
-                input.value = currentDateString;
-            })
-            initialization();
-            setInterval(updateDateTime, 60000);
-
-            loadTableData();
-
-            import studentsInfo from './student_info.json' with {type: 'json'};
+            });        
 
         </script>
-        
+        <script type="module" src="./javascript/jsonAccess.js"></script>
     </body>
 </html>
