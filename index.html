@@ -342,6 +342,9 @@
                         return;
                     }
                 }
+                alert(`No student ${commonNameInput.value} found.`)
+                commonNameInput.value = '';
+                commonNameInput.placeholder = 'Try again';
             })
 
             form.addEventListener('submit', () => { addEntryToTable(); });
