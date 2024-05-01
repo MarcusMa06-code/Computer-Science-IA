@@ -13,3 +13,5 @@ const oneClickButton = document.getElementById('one-click-register-all');
 var currentDateString = '';
 var startDateString = '';
 var endDateString = '';
+
+var tempStudent = new Object();

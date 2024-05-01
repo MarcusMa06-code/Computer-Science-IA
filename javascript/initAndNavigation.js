@@ -1,5 +1,6 @@
 // Initializing the content of page
 function initialization(){
+    updateDateTime();
     document.querySelector('#registration-form').style.display = 'block';
     document.querySelector("#time-span").style.display='none';
     document.querySelector("#download-button").style.display='none';

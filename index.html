@@ -38,32 +38,39 @@
                     </select>
                 </div>
 
-                <div class="class-container">
+                <!-- <div class="class-container">
                     <label for="register-class">Class:</label>
                     <select id="register-class">
                         <option value="A">A</option>
                         <option value="B" selected>B</option>
                     </select>
-                </div>
+                </div> -->
 
                 <div class="common-name-container">
-                    <label for="common-name">Commonly used name:</label>
+                    <label for="common-name">Commonly Used Name:</label>
                     <input type="text" id="common-name" autocomplete="off" required>
                 </div>
 
-                <div class="fname-container">
-                    <label for="fname">First name:</label>
-                    <input type="text" id="fname" autocomplete="off">
+                <div class="studentID-container">
+                    <label for="studentID">Student ID</label>
+                    <input id="studentID" disabled>
                 </div>
-                
-                <div class="lname-container">
-                    <label for="lname">Last name:</label>
-                    <input type="text" id="lname" autocomplete="off">
+
+                <div class="conditions-container">
+                    <label for="conditions">Conditions</label>
+                    <select id="conditions">
+                        <option value="Present">Present</option>
+                        <option value="Absent" selected>Absent</option>
+                        <option value="Medical">Medical</option>
+                        <option value="Authorised">Authorised</option>
+                        <option value="Late">Late</option>
+                        <option value="Left-Early">Left Early</option>
+                    </select>
                 </div>
-                
+
                 <div class="register-time-container">
                     <label for="register-time">Register time:</label>
-                    <input id="register-time" placeholder="Year-Month-Day-Hour-Minute" disabled="disabled">
+                    <input id="register-time" placeholder="Year-Month-Day" disabled="disabled">
                 </div>
 
                 <div class="submit-container">
@@ -75,31 +82,28 @@
             <table id="registration-table">
                 <tr>
                     <th>Commonly Used Name</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Student ID</th>
                     <th>Grade</th>
                     <th>Class</th>
                     <th>Status</th>
-                    <th>Time</th>
+                    <th>Date</th>
                 </tr>
                 <!-- test data -->
                 <tr>
                     <td id="status-flag">Marcus</td>
-                    <td>Mingyang</td>
-                    <td>Ma</td>
+                    <td>1339</td>
                     <td>IB1</td>
                     <td>B</td>
                     <td id="status-flag">Registered</td>
-                    <td>2024-04-30 07:10</td>
+                    <td>2024-04-30</td>
                 </tr>
                 <tr>
                     <td id="status-flag">Jerry</td>
-                    <td>Mingjun</td>
-                    <td>Ma</td>
+                    <td>1001</td>
                     <td>PIB</td>
                     <td>A</td>
                     <td id="status-flag">Registered</td>
-                    <td>2024-04-30 07:10</td>
+                    <td>2024-04-30</td>
                 </tr>
             </table>
 
@@ -109,11 +113,12 @@
         
         <script src="./javascript/commonElements.js"></script>
         <script src="./javascript/tableOperations.js"></script>  
+        <script src="./javascript/dateTimeOperations.js"></script>
         <script src="./javascript/initAndNavigation.js"></script>
         <script src="./javascript/datePicker.js"></script>
-        <script src="./javascript/dateTimeOperations.js"></script>
         <script src="./javascript/downloadTable.js"></script>
         <script type="module" src="./javascript/jsonAccess.js"></script>
+        <!-- <script src="./javascript/oneClickRegisterAll.js"></script> -->
 
     </body>
 </html>

@@ -1,30 +1,19 @@
 // Table related codes
 
-function addEntryToTable() {
-    const commonName = document.getElementById('common-name').value;
-    const firstName = document.getElementById('fname').value;
-    const lastName = document.getElementById('lname').value;
-    const grade = document.getElementById('grade').value;
-    const regClass = document.getElementById('register-class').value;
-    const registerTime = currentTime.value;
+function addEntryToTable() {    
 
-    var status = 'Registered';
-    if (registerTime.slice(-5,-3) === '07'){
-        if (registerTime.slice(-2) > '30') status = 'Late';
-    } else if (registerTime.slice(-5,-3) > '07') status = 'Late';
-
+    const condition = document.getElementById('conditions').value;
     const row = table.insertRow(-1);
     row.innerHTML = `
-        <td id="status-flag">${commonName}</td>
-        <td>${firstName}</td>
-        <td>${lastName}</td>
-        <td>${grade}</td>
-        <td>${regClass}</td>
-        <td id="status-flag">${status}</td>
-        <td>${registerTime}</td>
+        <td id="status-flag">${tempStudent['common-name']}</td>
+        <td>${tempStudent['student-id']}</td>
+        <td>${tempStudent.grade}</td>
+        <td>${tempStudent['register-class']}</td>
+        <td id="status-flag">${condition}</td>
+        <td>${currentDateString}</td>
     `;
 
-    if (status === 'Late'){
+    if (condition === 'Late'){
         let extraAttentions = row.querySelectorAll('#status-flag');
         extraAttentions.forEach(extraAttention =>{
             extraAttention.style.color = 'white';
@@ -33,6 +22,40 @@ function addEntryToTable() {
         })
     }
 
+    if (condition === 'Medical'){
+        let extraAttentions = row.querySelectorAll('#status-flag');
+        extraAttentions.forEach(extraAttention =>{
+            extraAttention.style.color = 'white';
+            extraAttention.style['background-color'] = 'green';
+            extraAttention.style['font-wright'] = 'bold';
+        })
+    }
+
+    if (condition === 'Left-Early'){
+        let extraAttentions = row.querySelectorAll('#status-flag');
+        extraAttentions.forEach(extraAttention =>{
+            extraAttention.style['background-color'] = 'yellow';
+            extraAttention.style['font-wright'] = 'bold';
+        })
+    }
+
+    if (condition === 'Authorised'){
+        let extraAttentions = row.querySelectorAll('#status-flag');
+        extraAttentions.forEach(extraAttention =>{
+            extraAttention.style['background-color'] = '#7FFFD4';
+            extraAttention.style['font-wright'] = 'bold';
+        })
+    }
+
+    if (condition === 'Absent'){
+        let extraAttentions = row.querySelectorAll('#status-flag');
+        extraAttentions.forEach(extraAttention =>{
+            extraAttention.style.color = 'white';
+            extraAttention.style['background-color'] = '#FF8C00';
+            extraAttention.style['font-wright'] = 'bold';
+        })
+    }
+    
     saveTableData();
 }
 
@@ -50,7 +73,7 @@ function loadTableData() {
 function hideTableData(startDate,endDate){
     const rows = document.querySelectorAll("#registration-table tr:not(:first-child)");
     rows.forEach(row => {
-        const dateText = row.cells[6].textContent.split(' ')[0];
+        const dateText = row.cells[5].textContent.split(' ')[0];
         if((dateText >= startDate && dateText <= endDate)){
             row.style.display = '';
         } else row.style.display = 'none';
