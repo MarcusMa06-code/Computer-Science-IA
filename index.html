@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <!-- importing fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+        <title>Online-Registering System</title>
+
+        <!-- css code of the page -->
+        <style>
+
+            div{
+                margin: 0;
+            }
+
+            body{
+                font-family: Roboto, Arial;
+            }
+            nav{
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 50px;
+                z-index: 100;
+
+                color: white;
+                background-color: black;
+            }
+            nav div{
+                flex: 1;
+                text-align: center;
+                
+            }
+
+            .registration-form, .time-span{
+                width: 400px;
+            }
+
+            .registration-form div, .time-span div{
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+                flex: 1;
+                text-align: center;
+            }
+
+            .time-span{
+                width: 200px;
+            }
+
+            .time-span label{
+                width: 70px;
+            }
+
+            label {
+                width: 180px;
+                text-align: right;
+                margin-right: 10px;
+            }
+
+            input, select {
+                flex: 1;
+            }
+
+            main{
+                padding-top: 80px;
+            }
+
+            table{
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+
+        </style>
+    </head>
+    <body>
+        <nav>
+            <div class="history-data-nav">History Data</div>
+            <div class="today-nav">Today</div>
+            <div class="export-all-nav">Export All</div>
+        </nav>
+        <main>
+
+            <form class="time-span" id="time-span">
+                <div class="starting-date-container">
+                    <label id="starting-date">Starts on:</label>
+                    <input id="boundary-date" type="date" value="Year-Month-Day">
+                </div>
+                <div class="ending-date-container">
+                    <label for="ending-date">Ends on:</label>
+                    <input id="boundary-date" type="date" value="Year-Month-Day">
+                </div>
+            </form>
+
+            <button class="download-button" id="download-button">Download</button>
+            
+            <form class="registration-form" id="registration-form">
+                <div class="grade-container">
+                    <label for="grade">Grade:</label>
+                    <select id="grade">
+                        <option value="PIB">PIB</option>
+                        <option value="IB1" selected>IB1</option>
+                        <option value="IB2">IB2</option>
+                    </select>
+                </div>
+
+                <div class="class-container">
+                    <label for="register-class">Class:</label>
+                    <select id="register-class">
+                        <option value="A">A</option>
+                        <option value="B" selected>B</option>
+                    </select>
+                </div>
+
+                <div class="common-name-container">
+                    <label for="common-name">Commonly used name:</label>
+                    <input type="text" id="common-name" value="Marcus">
+                </div>
+
+                <div class="fname-container">
+                    <label for="fname">First name:</label>
+                    <input type="text" id="fname" value="Mingyang">
+                </div>
+                
+                <div class="lname-container">
+                    <label for="lname">Last name:</label>
+                    <input type="text" id="lname" value="Ma"><br><br>
+                </div>
+                
+                <div class="register-time-container">
+                    <label for="register-time">Register time:</label>
+                    <input id="register-time" placeholder="Year-Month-Day-Hour-Minute" disabled="disabled">
+                </div>
+
+                <div class="submit-container">
+                    <input type="submit" value="Register">
+                </div>
+                
+            </form>
+
+            <table id="registration-table">
+                <tr>
+                    <th>Commonly Used Name</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Grade</th>
+                    <th>Class</th>
+                    <th>Status</th>
+                    <th>Time</th>
+                </tr>
+                <tr>
+                    <td>Marcus</td>
+                    <td>Mingyang</td>
+                    <td>Ma</td>
+                    <td>IB1</td>
+                    <td>B</td>
+                    <td>Registered</td>
+                    <td>2024-04-30 07:10</td>
+                </tr>
+                <tr>
+                    <td>Jerry</td>
+                    <td>Mingjun</td>
+                    <td>Ma</td>
+                    <td>PIB</td>
+                    <td>A</td>
+                    <td>Registered</td>
+                    <td>2024-04-30 07:10</td>
+                </tr>
+            </table>
+            
+        </main>
+        
+        <script>
+
+            const currentTime = document.getElementById('register-time');
+            const boundaryDate = document.querySelectorAll('#boundary-date');
+            const historyNav = document.querySelector('.history-data-nav');
+            const todayNav = document.querySelector('.today-nav');
+            const exportAll = document.querySelector('.export-all-nav');
+            const form = document.getElementById('registration-form');
+            const table = document.getElementById('registration-table');
+            var currentDateString = ''
+
+            
+
+            // initializing the content of page
+            document.querySelector('#registration-form').style.display = 'block';
+            document.querySelector("#time-span").style.display='none';
+            document.querySelector("#download-button").style.display='none';
+
+            function updateDateTime() {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = ('0' + (now.getMonth() + 1)).slice(-2);
+                const day = ('0' + now.getDate()).slice(-2);
+                const hour = ('0' + now.getHours()).slice(-2);
+                const minute = ('0' + now.getMinutes()).slice(-2);
+                currentTime.value = `${year}-${month}-${day} ${hour}:${minute}`;
+
+                boundaryDate.forEach(input =>{
+                    input.value =`${year}-${month}-${day}`;
+                })
+
+                currentDateString = `${year}-${month}-${day}`;
+            }
+
+            function addEntryToTable() {
+                const commonName = document.getElementById('common-name').value;
+                const firstName = document.getElementById('fname').value;
+                const lastName = document.getElementById('lname').value;
+                const grade = document.getElementById('grade').value;
+                const regClass = document.getElementById('register-class').value;
+                const registerTime = currentTime.value;
+
+                var status = 'Registered';
+                if (registerTime.slice(-5,-3) === '07'){
+                    if (registerTime.slice(-2) > '30') status = 'Late';
+                } else if (registerTime.slice(-5,-3) > '07') status = 'Late';
+
+                const row = table.insertRow(-1); // Append a new row to the table
+                row.innerHTML = `
+                    <td>${commonName}</td>
+                    <td>${firstName}</td>
+                    <td>${lastName}</td>
+                    <td>${grade}</td>
+                    <td>${regClass}</td>
+                    <td>${status}</td>
+                    <td>${registerTime}</td>
+                `;
+                saveTableData();
+            }
+
+            function saveTableData() {
+                const tableData = table.innerHTML;
+                localStorage.setItem('tableData', tableData);
+            }
+
+            function loadTableData() {
+                const storedTableData = localStorage.getItem('tableData');
+                if (storedTableData) {
+                    table.innerHTML = storedTableData;
+                }
+            }
+
+            function hideTableDate(startDate,endDate){
+                // here,loop through the table, make entries !(startDate <= Time && Time <= endDate) display.none
+            }
+
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+                addEntryToTable();
+            });
+
+            updateDateTime();
+            setInterval(updateDateTime, 60000);
+
+            historyNav.addEventListener('click', function() {
+                document.querySelector('#registration-form').style.display = 'none';
+                document.querySelector("#time-span").style.display='block';
+                document.querySelector("#download-button").style.display='none';
+            });
+
+            todayNav.addEventListener('click', function() {
+                document.querySelector('#registration-form').style.display = 'block';
+                document.querySelector("#time-span").style.display='none';
+                document.querySelector("#download-button").style.display='none';
+            });
+
+            exportAll.addEventListener('click', function() {
+                document.querySelector('#registration-form').style.display = 'none';
+                document.querySelector("#time-span").style.display='block';
+                document.querySelector("#download-button").style.display='block';
+
+            });
+
+            loadTableData();
+
+        </script>
+        
+    </body>
+</html>
+
+<!-- 接下来干什么：版本管理，出了问题方便回滚；hidetable还是没整明白 -->
