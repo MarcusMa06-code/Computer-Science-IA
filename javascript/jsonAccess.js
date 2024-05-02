@@ -10,6 +10,7 @@ commonNameInput.addEventListener('change', function() {
         // fuzzy search
         if (studentInfo.grade === grade && studentInfo['common-name'].toLowerCase().includes(commonNameInput.value.toLowerCase())) {
             document.getElementById('studentID').value = studentInfo['student-id'];
+            document.getElementById('common-name').value = studentInfo['common-name'];
             tempStudent = studentInfo;
             return;
         }
@@ -53,5 +54,4 @@ oneClickButton.addEventListener('click', function() {
         }
     }
     addHoverInput();
-    //location.reload();
 });

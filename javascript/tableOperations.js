@@ -27,7 +27,72 @@ function addEntryToTable() {
     `;
 
     let extraAttentions = row.querySelectorAll('#name, #condition');
-    switch(condition){
+    changeColor(condition,row,extraAttentions);
+    saveTableData();
+}
+// Add data into table
+form.addEventListener('submit', () => { 
+    addEntryToTable(); 
+    addHoverInput();
+});
+
+function saveTableData() {
+    localStorage.setItem('tableData', table.innerHTML);
+}
+
+function loadTableData() {
+    const storedTableData = localStorage.getItem('tableData');
+    if (storedTableData) {
+        table.innerHTML = storedTableData;
+    }
+}
+loadTableData();
+
+function hideTableData(startDate,endDate){
+    const rows = table.querySelector('tbody').querySelectorAll("tr");
+    rows.forEach(row => {
+        const dateText = row.cells[5].textContent;
+        if((dateText >= startDate && dateText <= endDate)){
+            row.classList.remove('hidden');
+        } else row.classList.add('hidden');
+    });
+}
+
+function addHoverInput(){
+    conditionAttribute = document.querySelectorAll("#condition");
+    conditionAttribute.forEach(condition => {
+        condition.addEventListener('mouseenter',function(){
+            var currentCondition = condition.innerHTML;
+            condition.innerHTML=`
+                <select id="condition-options">
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <option value="Medical">Medical</option>
+                    <option value="Authorised">Authorised</option>
+                    <option value="Late">Late</option>
+                    <option value="Left-Early">Left Early</option>
+                </select>
+            `;
+            condition.querySelector("#condition-options").value = currentCondition;
+        })
+
+        condition.addEventListener('mouseleave',function(){
+            let conditionName = condition.querySelector("#condition-options").value;
+            let row = condition.parentNode
+            let extraAttentions = row.querySelectorAll('#name, #condition');
+            condition.innerHTML = conditionName;
+
+            changeColor(conditionName,row,extraAttentions);
+
+            saveTableData();
+        })
+    });
+}
+addHoverInput();
+
+//change color
+function changeColor(conditionName,row,extraAttentions){
+    switch(conditionName){
         case 'Late':
             extraAttentions.forEach(extraAttention =>{
                 extraAttention.style.color = 'white';
@@ -69,106 +134,4 @@ function addEntryToTable() {
                 extraAttention.style = row.childNodes[1].style;
             })
     }
-    saveTableData();
 }
-// Add data into table
-form.addEventListener('submit', () => { 
-    addEntryToTable(); 
-    addHoverInput();
-});
-
-function saveTableData() {
-    localStorage.setItem('tableData', table.innerHTML);
-}
-
-function loadTableData() {
-    const storedTableData = localStorage.getItem('tableData');
-    if (storedTableData) {
-        table.innerHTML = storedTableData;
-    }
-}
-loadTableData();
-
-function hideTableData(startDate,endDate){
-    const rows = table.querySelector('tbody').querySelectorAll("tr");
-    console.log(rows)
-    rows.forEach(row => {
-        const dateText = row.cells[5].textContent;
-        if((dateText >= startDate && dateText <= endDate)){
-            row.classList.remove('hidden');
-        } else row.classList.add('hidden');
-    });
-}
-
-function addHoverInput(){
-    conditionAttribute = document.querySelectorAll("#condition");
-    conditionAttribute.forEach(condition => {
-        condition.addEventListener('mouseenter',function(){
-            var currentCondition = condition.innerHTML;
-            condition.innerHTML=`
-                <select id="condition-options">
-                    <option value="Present">Present</option>
-                    <option value="Absent">Absent</option>
-                    <option value="Medical">Medical</option>
-                    <option value="Authorised">Authorised</option>
-                    <option value="Late">Late</option>
-                    <option value="Left-Early">Left Early</option>
-                </select>
-            `;
-            condition.querySelector("#condition-options").value = currentCondition;
-        })
-
-        condition.addEventListener('mouseleave',function(){
-            let conditionName = condition.querySelector("#condition-options").value;
-            let row = condition.parentNode
-            let extraAttentions = row.querySelectorAll('#name, #condition');
-            condition.innerHTML = conditionName;
-
-            switch(conditionName){
-                case 'Late':
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style.color = 'white';
-                        extraAttention.style['background-color'] = 'red';
-                    })
-                    break;
-
-                case 'Medical':
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style.color = 'white';
-                        extraAttention.style['background-color'] = 'green';
-                    })
-                    break;
-
-                case 'Left-Early':
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style.color = 'black'
-                        extraAttention.style['background-color'] = 'yellow';
-                    })
-                    break;
-
-                case 'Authorised':
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style.color = 'black'
-                        extraAttention.style['background-color'] = '#7FFFD4';
-                    })
-                    break;
-
-                case 'Absent':
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style.color = 'white';
-                        extraAttention.style['background-color'] = '#FF8C00';
-                    })
-                    break;
-
-                default:
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style.color = 'black'
-                        extraAttention.style = row.childNodes[1].style;
-                    })
-            }
-
-            saveTableData();
-        })
-    });
-}
-addHoverInput();
