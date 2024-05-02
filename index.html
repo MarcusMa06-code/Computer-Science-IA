@@ -1,96 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-
-        <!-- importing fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-
-        <title>Online-Registering System</title>
-
-        <!-- css code of the page -->
-        <style>
-
-            div{
-                margin: 0;
-            }
-
-            body{
-                font-family: Roboto, Arial;
-            }
-            nav{
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 50px;
-                z-index: 100;
-
-                color: white;
-                background-color: black;
-            }
-            nav div{
-                flex: 1;
-                text-align: center;
-                
-            }
-
-            .registration-form, .time-span{
-                width: 400px;
-            }
-
-            .registration-form div, .time-span div{
-                display: flex;
-                align-items: center;
-                margin-bottom: 10px;
-                flex: 1;
-                text-align: center;
-            }
-
-            .time-span{
-                width: 200px;
-            }
-
-            .time-span label{
-                width: 70px;
-            }
-
-            label {
-                width: 180px;
-                text-align: right;
-                margin-right: 10px;
-            }
-
-            input, select {
-                flex: 1;
-            }
-
-            main{
-                padding-top: 80px;
-            }
-
-            table{
-                font-family: Roboto, arial;
-                border-collapse: collapse;
-                margin-top: 20px;
-            }
-
-            td, th {
-                border: 1px solid #dddddd;
-                text-align: left;
-                padding: 8px;
-            }
-
-            tr:nth-child(even) {
-                background-color: #dddddd;
-            }
-
-        </style>
+        <link rel="stylesheet" href="style.css">
+        <title>Online-Registering System</title>        
     </head>
     <body>
         <nav>
@@ -123,32 +38,39 @@
                     </select>
                 </div>
 
-                <div class="class-container">
+                <!-- <div class="class-container">
                     <label for="register-class">Class:</label>
                     <select id="register-class">
                         <option value="A">A</option>
                         <option value="B" selected>B</option>
                     </select>
-                </div>
+                </div> -->
 
                 <div class="common-name-container">
-                    <label for="common-name">Commonly used name:</label>
+                    <label for="common-name">Commonly Used Name:</label>
                     <input type="text" id="common-name" autocomplete="off" required>
                 </div>
 
-                <div class="fname-container">
-                    <label for="fname">First name:</label>
-                    <input type="text" id="fname" autocomplete="off">
+                <div class="studentID-container">
+                    <label for="studentID">Student ID</label>
+                    <input id="studentID" disabled>
                 </div>
-                
-                <div class="lname-container">
-                    <label for="lname">Last name:</label>
-                    <input type="text" id="lname" autocomplete="off">
+
+                <div class="conditions-container">
+                    <label for="condition-options">Conditions</label>
+                    <select id="condition-options">
+                        <option value="Present">Present</option>
+                        <option value="Absent" selected>Absent</option>
+                        <option value="Medical">Medical</option>
+                        <option value="Authorised">Authorised</option>
+                        <option value="Late">Late</option>
+                        <option value="Left-Early">Left Early</option>
+                    </select>
                 </div>
-                
+
                 <div class="register-time-container">
                     <label for="register-time">Register time:</label>
-                    <input id="register-time" placeholder="Year-Month-Day-Hour-Minute" disabled="disabled">
+                    <input id="register-time" placeholder="Year-Month-Day" disabled="disabled">
                 </div>
 
                 <div class="submit-container">
@@ -160,225 +82,43 @@
             <table id="registration-table">
                 <tr>
                     <th>Commonly Used Name</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Student ID</th>
                     <th>Grade</th>
                     <th>Class</th>
                     <th>Status</th>
-                    <th>Time</th>
+                    <th>Date</th>
                 </tr>
                 <!-- test data -->
                 <tr>
-                    <td id="status-flag">Marcus</td>
-                    <td>Mingyang</td>
-                    <td>Ma</td>
+                    <td id="name">Marcus</td>
+                    <td>1339</td>
                     <td>IB1</td>
                     <td>B</td>
-                    <td id="status-flag">Registered</td>
-                    <td>2024-04-30 07:10</td>
+                    <td id="condition">Present</td>
+                    <td>2024-04-30</td>
                 </tr>
                 <tr>
-                    <td id="status-flag">Jerry</td>
-                    <td>Mingjun</td>
-                    <td>Ma</td>
+                    <td id="name">Jerry</td>
+                    <td>1001</td>
                     <td>PIB</td>
                     <td>A</td>
-                    <td id="status-flag">Registered</td>
-                    <td>2024-04-30 07:10</td>
+                    <td id="condition">Present</td>
+                    <td>2024-04-30</td>
                 </tr>
             </table>
+
+            <button class="one-click-register-all" id="one-click-register-all">One click and register ALL!</button>
             
         </main>
         
-        <script type="module">
+        <script src="./javascript/commonElements.js"></script>
+        <script src="./javascript/tableOperations.js"></script>  
+        <script src="./javascript/dateTimeOperations.js"></script>
+        <script src="./javascript/initAndNavigation.js"></script>
+        <script src="./javascript/datePicker.js"></script>
+        <script src="./javascript/downloadTable.js"></script>
+        <script type="module" src="./javascript/jsonAccess.js"></script>
+        <!-- <script src="./javascript/oneClickRegisterAll.js"></script> -->
 
-            const currentTime = document.getElementById('register-time');
-            const boundaryDate = document.querySelectorAll('#boundary-date');
-            const historyNav = document.querySelector('.history-data-nav');
-            const todayNav = document.querySelector('.today-nav');
-            const exportAll = document.querySelector('.export-all-nav');
-            const form = document.getElementById('registration-form');
-            const table = document.getElementById('registration-table');
-            const commonNameInput = document.getElementById('common-name')
-            var currentDateString = '';
-            var startDateString = '';
-            var endDateString = '';
-            
-            // initializing the content of page
-            function initialization(){
-                document.querySelector('#registration-form').style.display = 'block';
-                document.querySelector("#time-span").style.display='none';
-                document.querySelector("#download-button").style.display='none';
-                hideTableData(currentDateString,currentDateString);
-            }
-
-            function updateDateTime() {
-                const now = new Date();
-                const year = now.getFullYear();
-                const month = ('0' + (now.getMonth() + 1)).slice(-2);
-                const day = ('0' + now.getDate()).slice(-2);
-                const hour = ('0' + now.getHours()).slice(-2);
-                const minute = ('0' + now.getMinutes()).slice(-2);
-                currentTime.value = `${year}-${month}-${day} ${hour}:${minute}`;
-                currentDateString = `${year}-${month}-${day}`;
-            }
-
-            function addEntryToTable() {
-                const commonName = document.getElementById('common-name').value;
-                const firstName = document.getElementById('fname').value;
-                const lastName = document.getElementById('lname').value;
-                const grade = document.getElementById('grade').value;
-                const regClass = document.getElementById('register-class').value;
-                const registerTime = currentTime.value;
-
-                var status = 'Registered';
-                if (registerTime.slice(-5,-3) === '07'){
-                    if (registerTime.slice(-2) > '30') status = 'Late';
-                } else if (registerTime.slice(-5,-3) > '07') status = 'Late';
-
-                const row = table.insertRow(-1); // Append a new row to the table
-                row.innerHTML = `
-                    <td id="status-flag">${commonName}</td>
-                    <td>${firstName}</td>
-                    <td>${lastName}</td>
-                    <td>${grade}</td>
-                    <td>${regClass}</td>
-                    <td id="status-flag">${status}</td>
-                    <td>${registerTime}</td>
-                `;
-
-                if (status === 'Late'){
-                    let extraAttentions = row.querySelectorAll('#status-flag');
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style.color = 'white';
-                        extraAttention.style['background-color'] = 'red';
-                        extraAttention.style['font-wright'] = 'bold';
-                    })
-                }
-
-                saveTableData();
-            }
-
-            function saveTableData() {
-                localStorage.setItem('tableData', table.innerHTML);
-            }
-
-            function loadTableData() {
-                const storedTableData = localStorage.getItem('tableData');
-                if (storedTableData) {
-                    table.innerHTML = storedTableData;
-                }
-            }
-
-            function hideTableData(startDate,endDate){
-                // here,loop through the table, make entries !(startDate <= Time && Time <= endDate) display.none
-
-                const rows = document.querySelectorAll("#registration-table tr:not(:first-child)"); // Skip the header row
-
-                rows.forEach(row => {
-                    const dateText = row.cells[6].textContent.split(' ')[0];
-                    if((dateText >= startDate && dateText <= endDate)){
-                        row.style.display = '';
-                    } else row.style.display = 'none';
-                });
-            }
-
-            function downloadXLS(){
-                const exportedTable = document.createElement('table');
-                const rows = document.querySelectorAll("#registration-table tr");
-                rows.forEach(row =>{
-                    if (row.style.display === ''){
-                        let temp = row.cloneNode(true);
-                        exportedTable.appendChild(temp);
-                    }
-                })
-                
-                exportedTable.style.fontFamily = 'Roboto, arial';
-                exportedTable.style.fontSize = '12px';
-                exportedTable.style.borderCollapse = 'collapse';
-                exportedTable.style.marginTop = '20px';
-                exportedTable.querySelectorAll('td, th').forEach(cell => {
-                    cell.style.border = '1px solid #dddddd';
-                    cell.style.textAlign = 'left';
-                    cell.style.padding = '8px';
-                });
-                
-                let a = document.createElement('a');
-				a.href = `data:application/vnd.ms-excel, ${encodeURIComponent(exportedTable.outerHTML)}`
-				a.download = startDateString + ' to ' + endDateString + '.xls'
-				a.click()
-            }
-            document.getElementById('download-button').addEventListener('click', downloadXLS);
-
-            boundaryDate.forEach(input => {
-                input.addEventListener('change', function(){
-                    startDateString = document.querySelector('.starting-date-container input').value;
-                    endDateString = document.querySelector('.ending-date-container input').value;
-                    if (startDateString > endDateString) {
-                        alert('Starting Date has to be prior to ending date!');
-
-                        endDateString = document.querySelector('.ending-date-container input').value = startDateString;
-                    }
-                    hideTableData(startDateString,endDateString);
-                });
-            });
-
-            commonNameInput.addEventListener('change',function(){
-
-                console.log('entered')
-
-                const grade = document.getElementById('grade').value;
-                const regClass = document.getElementById('register-class').value;
-
-                for(let i=0;i<studentsInfo.length;i++){
-                    let studentInfo = studentsInfo[i];
-                    console.log(studentInfo);
-                    if(studentInfo.grade === grade && studentInfo['common-name'] == commonNameInput.value){
-                        document.getElementById('fname').value = studentInfo.fname;
-                        document.getElementById('lname').value = studentInfo.lname;
-                        document.getElementById('register-class').value = studentInfo['register-class'];
-                        return;
-                    }
-                }
-                alert(`No student ${commonNameInput.value} found.`)
-                commonNameInput.value = '';
-                commonNameInput.placeholder = 'Try again';
-            })
-
-            form.addEventListener('submit', () => { addEntryToTable(); });
-
-            historyNav.addEventListener('click', function() {
-                document.querySelector('#registration-form').style.display = 'none';
-                document.querySelector("#time-span").style.display='block';
-                document.querySelector("#download-button").style.display='none';
-                hideTableData(startDateString,endDateString);
-            });
-
-            todayNav.addEventListener('click', function() {
-                initialization();
-            });
-
-            exportAll.addEventListener('click', function() {
-                document.querySelector('#registration-form').style.display = 'none';
-                document.querySelector("#time-span").style.display='block';
-                document.querySelector("#download-button").style.display='block';
-                hideTableData(startDateString,endDateString);
-            });
-
-            updateDateTime();
-            startDateString = currentDateString;
-            endDateString = currentDateString;
-            boundaryDate.forEach(input =>{
-                input.value = currentDateString;
-            })
-            initialization();
-            setInterval(updateDateTime, 60000);
-
-            loadTableData();
-
-            import studentsInfo from './student_info.json' with {type: 'json'};
-
-        </script>
-        
     </body>
 </html>

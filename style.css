@@ -1,0 +1,81 @@
+div{
+    margin: 0;
+}
+
+body{
+    font-family: Roboto, Arial;
+}
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    z-index: 100;
+
+    color: white;
+    background-color: black;
+}
+nav div{
+    flex: 1;
+    text-align: center;
+    
+}
+
+.registration-form, .time-span{
+    width: 400px;
+}
+
+.registration-form div, .time-span div{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex: 1;
+    text-align: center;
+}
+
+.time-span{
+    width: 200px;
+}
+
+.time-span label{
+    width: 70px;
+}
+
+label {
+    width: 180px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+input, select {
+    flex: 1;
+}
+
+main{
+    padding-top: 80px;
+}
+
+table{
+    font-family: Roboto, arial;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.one-click-register-all{
+    margin-top: 20px;
+}
