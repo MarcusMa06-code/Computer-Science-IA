@@ -1,7 +1,7 @@
 // Table related codes
 
 function addEntryToTable() {
-    const rows = document.querySelectorAll("#registration-table tr"); //
+    const rows = document.querySelectorAll("#registration-table tbody tr"); //
     let existed = false;
     rows.forEach(row =>{
         const dateText = row.cells[5].textContent;
@@ -16,14 +16,14 @@ function addEntryToTable() {
     }
 
     const condition = document.getElementById('condition-options').value;
-    const row = table.insertRow(-1);
+    const row = table.querySelector('tbody').insertRow();
     row.innerHTML = `
-        <td id="name">${tempStudent['common-name']}</td>
-        <td>${tempStudent['student-id']}</td>
-        <td>${tempStudent.grade}</td>
-        <td>${tempStudent['register-class']}</td>
-        <td id="condition">${condition}</td>
-        <td>${currentDateString}</td>
+        <td class="px-4 py-2 text-center" id="name">${tempStudent['common-name']}</td>
+        <td class="px-4 py-2 text-center">${tempStudent['student-id']}</td>
+        <td class="px-4 py-2 text-center">${tempStudent.grade}</td>
+        <td class="px-4 py-2 text-center">${tempStudent['register-class']}</td>
+        <td class="px-4 py-2 text-center" id="condition">${condition}</td>
+        <td class="px-4 py-2 text-center">${currentDateString}</td>
     `;
 
     let extraAttentions = row.querySelectorAll('#name, #condition');
@@ -44,6 +44,7 @@ function addEntryToTable() {
 
         case 'Left-Early':
             extraAttentions.forEach(extraAttention =>{
+                extraAttention.style.color = 'black'
                 extraAttention.style['background-color'] = 'yellow';
             })
             break;
@@ -64,6 +65,7 @@ function addEntryToTable() {
 
         default:
             extraAttentions.forEach(extraAttention =>{
+                extraAttention.style.color = 'black'
                 extraAttention.style = row.childNodes[1].style;
             })
     }
@@ -88,12 +90,13 @@ function loadTableData() {
 loadTableData();
 
 function hideTableData(startDate,endDate){
-    const rows = document.querySelectorAll("#registration-table tr:not(:first-child)");
+    const rows = table.querySelector('tbody').querySelectorAll("tr");
+    console.log(rows)
     rows.forEach(row => {
-        const dateText = row.cells[5].textContent
+        const dateText = row.cells[5].textContent;
         if((dateText >= startDate && dateText <= endDate)){
-            row.style.display = '';
-        } else row.style.display = 'none';
+            row.classList.remove('hidden');
+        } else row.classList.add('hidden');
     });
 }
 
@@ -138,6 +141,7 @@ function addHoverInput(){
 
                 case 'Left-Early':
                     extraAttentions.forEach(extraAttention =>{
+                        extraAttention.style.color = 'black'
                         extraAttention.style['background-color'] = 'yellow';
                     })
                     break;
@@ -158,6 +162,7 @@ function addHoverInput(){
 
                 default:
                     extraAttentions.forEach(extraAttention =>{
+                        extraAttention.style.color = 'black'
                         extraAttention.style = row.childNodes[1].style;
                     })
             }

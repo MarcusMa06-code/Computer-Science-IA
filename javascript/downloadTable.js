@@ -1,7 +1,7 @@
 // download function
 function downloadXLS(){
     const exportedTable = document.createElement('table');
-    const rows = document.querySelectorAll("#registration-table tr");
+    const rows = document.querySelectorAll("#registration-table tbody tr");
     rows.forEach(row =>{
         if (row.style.display === ''){
             let temp = row.cloneNode(true);
