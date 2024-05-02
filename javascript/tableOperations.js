@@ -34,6 +34,7 @@ function addEntryToTable() {
 form.addEventListener('submit', () => { 
     addEntryToTable(); 
     addHoverInput();
+    location.reload();
 });
 
 function saveTableData() {

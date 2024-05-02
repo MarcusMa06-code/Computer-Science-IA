@@ -50,8 +50,10 @@ oneClickButton.addEventListener('click', function() {
                     <td class="px-4 py-2 text-center" id="condition">Present</td>
                     <td class="px-4 py-2 text-center">${currentDateString}</td>
                 `;
+                saveTableData();
             }
         }
     }
     addHoverInput();
+    location.reload();
 });
