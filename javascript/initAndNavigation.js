@@ -14,16 +14,19 @@ historyNav.addEventListener('click', function() {
     document.querySelector('#registration-form').style.display = 'none';
     document.querySelector("#time-span").style.display='block';
     document.querySelector("#download-button").style.display='none';
+    document.querySelector('#one-click-register-all').style.display = 'none';
     hideTableData(startDateString,endDateString);
 });
 
 todayNav.addEventListener('click', function() {
     initialization();
+    document.querySelector('#one-click-register-all').style.display = '';
 });
 
 exportAll.addEventListener('click', function() {
     document.querySelector('#registration-form').style.display = 'none';
     document.querySelector("#time-span").style.display='block';
     document.querySelector("#download-button").style.display='block';
+    document.querySelector('#one-click-register-all').style.display = 'none';
     hideTableData(startDateString,endDateString);
 });

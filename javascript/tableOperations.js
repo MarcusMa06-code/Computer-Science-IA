@@ -1,7 +1,7 @@
 // Table related codes
 
 function addEntryToTable() {
-    const rows = document.querySelectorAll("#registration-table tr"); //
+    const rows = document.querySelectorAll("#registration-table tbody tr"); //
     let existed = false;
     rows.forEach(row =>{
         const dateText = row.cells[5].textContent;
@@ -16,57 +16,18 @@ function addEntryToTable() {
     }
 
     const condition = document.getElementById('condition-options').value;
-    const row = table.insertRow(-1);
+    const row = table.querySelector('tbody').insertRow();
     row.innerHTML = `
-        <td id="name">${tempStudent['common-name']}</td>
-        <td>${tempStudent['student-id']}</td>
-        <td>${tempStudent.grade}</td>
-        <td>${tempStudent['register-class']}</td>
-        <td id="condition">${condition}</td>
-        <td>${currentDateString}</td>
+        <td class="px-4 py-2 text-center" id="name">${tempStudent['common-name']}</td>
+        <td class="px-4 py-2 text-center">${tempStudent['student-id']}</td>
+        <td class="px-4 py-2 text-center">${tempStudent.grade}</td>
+        <td class="px-4 py-2 text-center">${tempStudent['register-class']}</td>
+        <td class="px-4 py-2 text-center" id="condition">${condition}</td>
+        <td class="px-4 py-2 text-center">${currentDateString}</td>
     `;
 
     let extraAttentions = row.querySelectorAll('#name, #condition');
-    switch(condition){
-        case 'Late':
-            extraAttentions.forEach(extraAttention =>{
-                extraAttention.style.color = 'white';
-                extraAttention.style['background-color'] = 'red';
-            })
-            break;
-
-        case 'Medical':
-            extraAttentions.forEach(extraAttention =>{
-                extraAttention.style.color = 'white';
-                extraAttention.style['background-color'] = 'green';
-            })
-            break;
-
-        case 'Left-Early':
-            extraAttentions.forEach(extraAttention =>{
-                extraAttention.style['background-color'] = 'yellow';
-            })
-            break;
-
-        case 'Authorised':
-            extraAttentions.forEach(extraAttention =>{
-                extraAttention.style.color = 'black'
-                extraAttention.style['background-color'] = '#7FFFD4';
-            })
-            break;
-
-        case 'Absent':
-            extraAttentions.forEach(extraAttention =>{
-                extraAttention.style.color = 'white';
-                extraAttention.style['background-color'] = '#FF8C00';
-            })
-            break;
-
-        default:
-            extraAttentions.forEach(extraAttention =>{
-                extraAttention.style = row.childNodes[1].style;
-            })
-    }
+    changeColor(condition,row,extraAttentions);
     saveTableData();
 }
 // Add data into table
@@ -88,12 +49,12 @@ function loadTableData() {
 loadTableData();
 
 function hideTableData(startDate,endDate){
-    const rows = document.querySelectorAll("#registration-table tr:not(:first-child)");
+    const rows = table.querySelector('tbody').querySelectorAll("tr");
     rows.forEach(row => {
-        const dateText = row.cells[5].textContent
+        const dateText = row.cells[5].textContent;
         if((dateText >= startDate && dateText <= endDate)){
-            row.style.display = '';
-        } else row.style.display = 'none';
+            row.classList.remove('hidden');
+        } else row.classList.add('hidden');
     });
 }
 
@@ -121,49 +82,56 @@ function addHoverInput(){
             let extraAttentions = row.querySelectorAll('#name, #condition');
             condition.innerHTML = conditionName;
 
-            switch(conditionName){
-                case 'Late':
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style.color = 'white';
-                        extraAttention.style['background-color'] = 'red';
-                    })
-                    break;
-
-                case 'Medical':
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style.color = 'white';
-                        extraAttention.style['background-color'] = 'green';
-                    })
-                    break;
-
-                case 'Left-Early':
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style['background-color'] = 'yellow';
-                    })
-                    break;
-
-                case 'Authorised':
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style.color = 'black'
-                        extraAttention.style['background-color'] = '#7FFFD4';
-                    })
-                    break;
-
-                case 'Absent':
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style.color = 'white';
-                        extraAttention.style['background-color'] = '#FF8C00';
-                    })
-                    break;
-
-                default:
-                    extraAttentions.forEach(extraAttention =>{
-                        extraAttention.style = row.childNodes[1].style;
-                    })
-            }
+            changeColor(conditionName,row,extraAttentions);
 
             saveTableData();
         })
     });
 }
 addHoverInput();
+
+//change color
+function changeColor(conditionName,row,extraAttentions){
+    switch(conditionName){
+        case 'Late':
+            extraAttentions.forEach(extraAttention =>{
+                extraAttention.style.color = 'white';
+                extraAttention.style['background-color'] = 'red';
+            })
+            break;
+
+        case 'Medical':
+            extraAttentions.forEach(extraAttention =>{
+                extraAttention.style.color = 'white';
+                extraAttention.style['background-color'] = 'green';
+            })
+            break;
+
+        case 'Left-Early':
+            extraAttentions.forEach(extraAttention =>{
+                extraAttention.style.color = 'black'
+                extraAttention.style['background-color'] = 'yellow';
+            })
+            break;
+
+        case 'Authorised':
+            extraAttentions.forEach(extraAttention =>{
+                extraAttention.style.color = 'black'
+                extraAttention.style['background-color'] = '#7FFFD4';
+            })
+            break;
+
+        case 'Absent':
+            extraAttentions.forEach(extraAttention =>{
+                extraAttention.style.color = 'white';
+                extraAttention.style['background-color'] = '#FF8C00';
+            })
+            break;
+
+        default:
+            extraAttentions.forEach(extraAttention =>{
+                extraAttention.style.color = 'black'
+                extraAttention.style = row.childNodes[1].style;
+            })
+    }
+}
