@@ -40,14 +40,15 @@ oneClickButton.addEventListener('click',function(){
             if (add){
                 const student = table.insertRow(-1);
                 student.innerHTML = `
-                    <td id="status-flag">${studentInfo['common-name']}</td>
+                    <td id="name">${studentInfo['common-name']}</td>
                     <td>${studentInfo['student-id']}</td>
                     <td>${grade}</td>
                     <td>${studentInfo['register-class']}</td>
-                    <td id="status-flag">Present</td>
+                    <td id="condition">Present</td>
                     <td>${currentDateString}</td>
                 `;
             }
         }
     }
+    addHoverInput();
 })

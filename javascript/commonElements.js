@@ -8,6 +8,7 @@ const form = document.getElementById('registration-form');
 const table = document.getElementById('registration-table');
 const commonNameInput = document.getElementById('common-name');
 const oneClickButton = document.getElementById('one-click-register-all');
+var conditionAttribute = document.querySelectorAll("#condition");
 
 // Common date variables
 var currentDateString = '';
