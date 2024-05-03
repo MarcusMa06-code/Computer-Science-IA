@@ -52,8 +52,8 @@ function hideTableData(startDate,endDate){
     rows.forEach(row => {
         const dateText = row.cells[5].textContent;
         if((dateText >= startDate && dateText <= endDate)){
-            row.classList.remove('hidden');
-        } else row.classList.add('hidden');
+            row.style.display = '';
+        } else row.style.display = 'none';
     })
 }
 

@@ -7,7 +7,7 @@ commonNameInput.addEventListener('change', function() {
 
     for (let i = 0; i < studentsInfo.length; i++) {
         let studentInfo = studentsInfo[i];
-        if (studentInfo.grade === grade && studentInfo['common-name'].toLowerCase == commonNameInput.value.toLowerCase()) {
+        if (studentInfo.grade === grade && studentInfo['common-name'].toLowerCase() == commonNameInput.value.toLowerCase()) {
             document.getElementById('studentID').value = studentInfo['student-id'];
             document.getElementById('common-name').value = studentInfo['common-name'];
             tempStudent = studentInfo;
