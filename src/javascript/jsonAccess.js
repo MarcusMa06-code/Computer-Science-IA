@@ -1,4 +1,5 @@
 import studentsInfo from '../student_info.json' with {type: 'json'};
+export { studentsInfo };
 
 // auto complete the form
 commonNameInput.addEventListener('change', function() {
@@ -34,8 +35,9 @@ oneClickButton.addEventListener('click', function() {
             let add = true;
             rows.forEach(row => {
                 const dateText = row.cells[5].textContent;
-                if (dateText === currentDateString && row.cells[1].textContent === studentInfo['student-id']) {
+                if (dateText === currentDateString && row.cells[1].textContent == studentInfo['student-id']) {
                     add = false;
+                    console.log('no');
                 }
             })
             if (add) {

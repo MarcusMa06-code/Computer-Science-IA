@@ -30,6 +30,21 @@
                     <label for="boundary-date" class="w-18 text-right mr-2">Ends on:</label>
                     <input id="boundary-date" type="date" class="flex-1">
                 </div>
+
+                <!-- 年级搜索 -->
+
+                <div class="mb-3">
+                    <label for="search-grade" class="block text-gray-700 text-sm font-bold mb-1">Grade:</label>
+                    <select id="search-grade" class="block w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="" selected>Unspecified</option>
+                        <option value="PIB">PIB</option>
+                        <option value="IB1">IB1</option>
+                        <option value="IB2">IB2</option>
+                    </select>
+                </div>
+
+                <!-- 年级搜索 -->
+
             </form>            
 
             <button class="mx-auto block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 cursor-pointer" id="download-button">Download</button>
@@ -75,7 +90,7 @@
                 
             </form>
 
-            <table id="registration-table" class="mx-auto w-full mt-5 table-auto shadow-lg border-collapse max-w-4xl">
+            <table id="registration-table" class="mx-auto w-full mt-5 shadow-lg border-collapse max-w-4xl">
                 <thead class="bg-gray-100">
                     <tr>
                         <th class="px-4 py-2 text-center">Commonly Used Name</th>
@@ -106,7 +121,30 @@
                         <td class="px-4 py-2 text-center">2024-04-30</td>
                     </tr>
                 </tbody>
-            </table>                       
+            </table>
+
+            <div class="text-center text-lg font-medium my-4" id="reference-day-container">
+                Reference days of attendance: <span class="text-xl font-bold" id="reference-day"></span> Days
+            </div>            
+            
+            <table id="analysis-table" class="mx-auto w-full mt-5 shadow-lg border-collapse max-w-6xl">
+                <thead class="bg-gray-100" id = "analysis-head">
+                    <tr>
+                        <th class="px-4 py-2 text-center">Commonly Used Name</th>
+                        <th class="px-4 py-2 text-center">Student ID</th>
+                        <th class="px-4 py-2 text-center">Grade</th>
+                        <th class="px-4 py-2 text-center">Present#</th>
+                        <th class="px-4 py-2 text-center">Absent#</th>
+                        <th class="px-4 py-2 text-center">Medical#</th>
+                        <th class="px-4 py-2 text-center">Authorised#</th>
+                        <th class="px-4 py-2 text-center">Late#</th>
+                        <th class="px-4 py-2 text-center">Left Early#</th>
+                        <th class="px-4 py-2 text-center">Present%</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200"></tbody>
+            </table>
+            
 
             <button class="mx-auto block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 cursor-pointer" id="one-click-register-all">One click and register ALL!</button>
             
@@ -119,6 +157,7 @@
         <script src="./javascript/datePicker.js"></script>
         <script src="./javascript/downloadTable.js"></script>
         <script type="module" src="./javascript/jsonAccess.js"></script>
+        <script type="module" src="./javascript/analysis.js"></script>
 
     </body>
 </html>
