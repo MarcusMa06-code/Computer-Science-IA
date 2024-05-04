@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="style.css">
+        <title>Online-Registering System</title>        
+    </head>
+    <body>
+
+        <nav class="bg-white shadow-md fixed top-0 left-0 right-0 z-100">
+            <div class="flex justify-between items-center w-full px-6 py-3">
+                <a id="history-data-nav" class="flex-grow text-center text-gray-800 hover:text-blue-600 font-semibold text-lg">History Data</a>
+                <a id="today-nav" class="flex-grow text-center text-gray-800 hover:text-blue-600 font-semibold text-lg">Today</a>
+                <a id="analysis" class="flex-grow text-center text-gray-800 hover:text-blue-600 font-semibold text-lg">Analysis</a>
+            </div>
+        </nav>
+        
+        
+        <main class="pt-16">
+
+            <form class="time-span mx-auto w-80 p-4 bg-white shadow-lg rounded-lg" id="time-span">
+                <div class="mb-2 flex items-center" id="starting-date-container">
+                    <label for="boundary-date" class="w-18 text-right mr-2">Starts on:</label>
+                    <input id="boundary-date" type="date" class="flex-1">
+                </div>
+                <div class="mb-2 flex items-center" id="ending-date-container">
+                    <label for="boundary-date" class="w-18 text-right mr-2">Ends on:</label>
+                    <input id="boundary-date" type="date" class="flex-1">
+                </div>
+
+                <!-- 年级搜索 -->
+
+                <div class="mb-3">
+                    <label for="search-grade" class="block text-gray-700 text-sm font-bold mb-1">Grade:</label>
+                    <select id="search-grade" class="block w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="" selected>Unspecified</option>
+                        <option value="PIB">PIB</option>
+                        <option value="IB1">IB1</option>
+                        <option value="IB2">IB2</option>
+                    </select>
+                </div>
+
+                <!-- 年级搜索 -->
+
+            </form>            
+
+            <button class="mx-auto block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 cursor-pointer" id="download-button">Download</button>
+            
+            <form class="registration-form mx-auto p-4 bg-white shadow-lg rounded-lg w-80" id="registration-form">
+                <div class="mb-3">
+                    <label for="grade" class="block text-gray-700 text-sm font-bold mb-1">Grade:</label>
+                    <select id="grade" class="block w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="PIB">PIB</option>
+                        <option value="IB1" selected>IB1</option>
+                        <option value="IB2">IB2</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="common-name" class="block text-gray-700 text-sm font-bold mb-1">Commonly Used Name:</label>
+                    <input type="text" id="common-name" autocomplete="off" required class="block w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="studentID" class="block text-gray-700 text-sm font-bold mb-1">Student ID</label>
+                    <input id="studentID" disabled class="block w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <div class="mb-3">
+                    <label for="condition-options" class="block text-gray-700 text-sm font-bold mb-1">Conditions</label>
+                    <select id="condition-options" class="block w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="Present">Present</option>
+                        <option value="Absent" selected>Absent</option>
+                        <option value="Medical">Medical</option>
+                        <option value="Authorised">Authorised</option>
+                        <option value="Late">Late</option>
+                        <option value="Left-Early">Left Early</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="register-time" class="block text-gray-700 text-sm font-bold mb-1">Register time:</label>
+                    <input id="register-time" placeholder="Year-Month-Day" disabled class="block w-full border border-gray-300 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <input type="submit" value="Register" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer">
+                
+            </form>
+
+            <table id="registration-table" class="mx-auto w-full mt-5 shadow-lg border-collapse max-w-4xl">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2 text-center">Commonly Used Name</th>
+                        <th class="px-4 py-2 text-center">Student ID</th>
+                        <th class="px-4 py-2 text-center">Grade</th>
+                        <th class="px-4 py-2 text-center">Class</th>
+                        <th class="px-4 py-2 text-center">Status</th>
+                        <th class="px-4 py-2 text-center">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <!-- text data -->
+                    <tr>
+                        <td class="px-4 py-2 text-center">Marcus</td>
+                        <td class="px-4 py-2 text-center">1339</td>
+                        <td class="px-4 py-2 text-center">IB1</td>
+                        <td class="px-4 py-2 text-center">B</td>
+                        <td class="px-4 py-2 text-center">Present</td>
+                        <td class="px-4 py-2 text-center">2024-04-30</td>
+
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 text-center">Jerry</td>
+                        <td class="px-4 py-2 text-center">1001</td>
+                        <td class="px-4 py-2 text-center">PIB</td>
+                        <td class="px-4 py-2 text-center">A</td>
+                        <td class="px-4 py-2 text-center">Present</td>
+                        <td class="px-4 py-2 text-center">2024-04-30</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="text-center text-lg font-medium my-4" id="reference-day-container">
+                Reference days of attendance: <span class="text-xl font-bold" id="reference-day"></span> Days
+            </div>            
+            
+            <table id="analysis-table" class="mx-auto w-full mt-5 shadow-lg border-collapse max-w-6xl">
+                <thead class="bg-gray-100" id = "analysis-head">
+                    <tr>
+                        <th class="px-4 py-2 text-center">Commonly Used Name</th>
+                        <th class="px-4 py-2 text-center">Student ID</th>
+                        <th class="px-4 py-2 text-center">Grade</th>
+                        <th class="px-4 py-2 text-center">Present#</th>
+                        <th class="px-4 py-2 text-center">Absent#</th>
+                        <th class="px-4 py-2 text-center">Medical#</th>
+                        <th class="px-4 py-2 text-center">Authorised#</th>
+                        <th class="px-4 py-2 text-center">Late#</th>
+                        <th class="px-4 py-2 text-center">Left Early#</th>
+                        <th class="px-4 py-2 text-center">Present%</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200"></tbody>
+            </table>
+            
+
+            <button class="mx-auto block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 cursor-pointer" id="one-click-register-all">One click and register ALL!</button>
+            
+        </main>
+        
+        <script src="./javascript/commonElements.js"></script>
+        <script src="./javascript/tableOperations.js"></script>  
+        <script src="./javascript/dateTimeOperations.js"></script>
+        <script src="./javascript/initAndNavigation.js"></script>
+        <script src="./javascript/datePicker.js"></script>
+        <script src="./javascript/downloadTable.js"></script>
+        <script type="module" src="./javascript/jsonAccess.js"></script>
+        <script type="module" src="./javascript/analysis.js"></script>
+
+    </body>
+</html>
