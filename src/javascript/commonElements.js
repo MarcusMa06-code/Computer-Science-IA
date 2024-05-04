@@ -6,6 +6,7 @@ const todayNav = document.querySelector('#today-nav');
 const analysisAndExport = document.querySelector('#analysis');
 const form = document.getElementById('registration-form');
 const table = document.getElementById('registration-table');
+const analysis = document.getElementById('analysis-table');
 const commonNameInput = document.getElementById('common-name');
 const oneClickButton = document.getElementById('one-click-register-all');
 
