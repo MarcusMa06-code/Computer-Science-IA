@@ -9,6 +9,7 @@ const table = document.getElementById('registration-table');
 const analysis = document.getElementById('analysis-table');
 const commonNameInput = document.getElementById('common-name');
 const oneClickButton = document.getElementById('one-click-register-all');
+const searchGrade = document.getElementById('search-grade');
 
 // Common date variables
 var currentDateString = '';

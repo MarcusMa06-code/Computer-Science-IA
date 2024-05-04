@@ -9,6 +9,7 @@ analysisAndExport.addEventListener('click', function() {
     analysis.style.display = '';
     document.querySelector('#reference-day-container').style.display = '';
     generateAnalysis();
+    searchGrade.value = '';
 })
 
 function generateAnalysis(){

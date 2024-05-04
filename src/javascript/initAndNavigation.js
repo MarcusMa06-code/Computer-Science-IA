@@ -21,6 +21,7 @@ historyNav.addEventListener('click', function() {
     analysis.style.display = 'none';
     hideTableData(startDateString,endDateString);
     document.querySelector('#reference-day-container').style.display = 'none';
+    searchGrade.value = '';
 })
 
 todayNav.addEventListener('click', function() {
