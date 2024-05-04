@@ -10,5 +10,6 @@ boundaryDate.forEach(input => {
             endDateString = document.querySelector('#ending-date-container input').value = startDateString;
         }
         hideTableData(startDateString,endDateString);
+        analysisAndExport.click();
     });
 });
