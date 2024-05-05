@@ -73,6 +73,7 @@ function addHoverInput(){
                 </select>
             `;
             condition.querySelector("#condition-options").value = currentCondition;
+            condition.querySelector("#condition-options").style.color = 'black';
         });
 
         condition.addEventListener('mouseleave',function(){
@@ -152,17 +153,3 @@ searchGrade.addEventListener('change', () => {
         if(row.cells[2].textContent != grade && grade) row.style.display = 'none';
     });
 });
-
-// 替换代码
-// const tablerows = table.querySelector('tbody').querySelectorAll("tr");
-// const analysisrows = analysis.querySelector('tbody').querySelectorAll("tr");
-// hideTableData(startDateString,endDateString);
-// tablerows.forEach(tablerow => {
-//     if(tablerow.cells[2].textContent != grade && grade) tablerow.style.display = 'none';
-// });
-// analysisrows.forEach(analysisrow => {
-//     analysisrow.style.display = '';
-// });
-// analysisrows.forEach(analysisrow => {
-//     if(analysisrow.cells[2].textContent != grade && grade) analysisrow.style.display = 'none';
-// });
